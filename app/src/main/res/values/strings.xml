@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Упражнения</string>
+    <string name="edit_message">Введите название</string>
+    <string name="add">Добавить</string>
+    <string name="user">Профиль</string>
+    <string name="settings">Профиль</string>
+</resources>
