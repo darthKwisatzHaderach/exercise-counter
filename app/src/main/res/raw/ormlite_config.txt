@@ -1,0 +1,17 @@
+#
+# generated on 2018/09/18 01:26:24
+#
+# --table-start--
+dataClass=com.exercisesdiary.model.Exercise
+tableName=exercise
+# --table-fields-start--
+# --field-start--
+fieldName=id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=name
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################

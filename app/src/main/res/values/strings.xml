@@ -5,4 +5,7 @@
     <string name="user">Профиль</string>
     <string name="settings">Профиль</string>
     <string name="add_exercise_menu_title">Добавить упражнение</string>
+    <string name="title_activity_exercise_details">ExerciseDetails</string>
+    <string name="edit">Редактировать</string>
+    <string name="delete">Удалить</string>
 </resources>
