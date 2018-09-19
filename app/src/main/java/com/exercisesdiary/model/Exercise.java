@@ -1,13 +1,15 @@
 package com.exercisesdiary.model;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
+@DatabaseTable
 public class Exercise {
 
     @DatabaseField(generatedId = true)
     int id;
 
-    @DatabaseField
+    @DatabaseField(unique = true)
     String name;
 
     public Exercise(){
@@ -29,5 +31,9 @@ public class Exercise {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 }

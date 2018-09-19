@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/add"
-        android:icon="@drawable/plus"
+        android:icon="@drawable/add"
         android:onClick="add"
         android:title="@string/add"
         app:showAsAction="always" />
 
     <item android:id="@+id/user"
-        android:icon="@drawable/user"
+        android:icon="@drawable/person"
         android:title="@string/user"
         app:showAsAction="always"/>
 
