@@ -47,5 +47,6 @@ public class AddExerciseActivity extends AppCompatActivity {
         Log.d("demo", exercises.toString());
 
         OpenHelperManager.releaseHelper();
+        finish();
     }
 }
