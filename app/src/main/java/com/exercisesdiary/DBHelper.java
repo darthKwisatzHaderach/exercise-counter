@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class DBHelper extends OrmLiteSqliteOpenHelper  {
     private static final String DATABASE_NAME = "exercises.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     private Dao<Exercise, Integer> exerciseDao = null;
     private Dao<ExerciseRun, Integer> exerciseRunDao = null;

@@ -41,10 +41,6 @@ public class AddExerciseActivity extends AppCompatActivity {
         String name = editExerciseName.getText().toString();
 
         exerciseDao.create(new Exercise(name));
-        Log.d("demo", name);
-
-        List<Exercise> exercises = exerciseDao.queryForAll();
-        Log.d("demo", exercises.toString());
 
         OpenHelperManager.releaseHelper();
         finish();

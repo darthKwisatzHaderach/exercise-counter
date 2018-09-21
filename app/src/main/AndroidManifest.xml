@@ -30,6 +30,11 @@
             android:name=".ExerciseDetails"
             android:label="@string/title_activity_exercise_details"
             android:theme="@style/AppTheme"></activity>
+
+        <!-- The meta-data tag is required if you support API level 15 and lower -->
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
     </application>
 
 </manifest>

@@ -11,8 +11,13 @@ public class ExerciseRun {
     @DatabaseField(generatedId = true)
     int id;
 
-    @DatabaseField
-    int exercise_id;
+    @DatabaseField(
+            foreign = true,
+            foreignAutoRefresh = true,
+            canBeNull = false,
+            index = true,
+            columnDefinition = "INTEGER CONSTRAINT FK_NAME REFERENCES parent(id) ON DELETE CASCADE")
+    Exercise exercise;
 
     @DatabaseField
     int count;
@@ -24,8 +29,8 @@ public class ExerciseRun {
 
     }
 
-    public ExerciseRun(int exercise_id, int count, Date date){
-        this.exercise_id = exercise_id;
+    public ExerciseRun(Exercise exercise, int count, Date date){
+        this.exercise = exercise;
         this.count = count;
         this.date = date;
     }
