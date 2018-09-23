@@ -28,8 +28,8 @@ import org.w3c.dom.Text;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ExerciseDetails extends AppCompatActivity {
-
+public class ExerciseDetailsActivity extends AppCompatActivity {
+    public static final String EXERCISE_OLD_NAME = "com.exercisediary.EXERCISE_OLD_NAME";
     private String name;
 
     @Override
@@ -37,7 +37,7 @@ public class ExerciseDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_details);
         Intent intent = getIntent();
-        name = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        name = intent.getStringExtra(MainActivity.EXERCISE_NAME);
         Toolbar toolbar = (Toolbar) findViewById(R.id.exercise_details_menu);
         toolbar.setTitle(name);
         setSupportActionBar(toolbar);
@@ -68,7 +68,7 @@ public class ExerciseDetails extends AppCompatActivity {
         return true;
     }
 
-    public void delete(MenuItem irem) throws SQLException {
+    public void delete(MenuItem item) throws SQLException {
         DBHelper dbHelper = OpenHelperManager.getHelper(this, DBHelper.class);
         RuntimeExceptionDao<Exercise, Integer> exerciseDao = dbHelper.getExerciseRuntimeDao();
 
@@ -93,7 +93,7 @@ public class ExerciseDetails extends AppCompatActivity {
 
         queryBuilder.where().eq("exercise_id", exercise.getId());
         queryBuilder.limit((long) days);
-        queryBuilder.orderBy("date", true);
+        queryBuilder.orderBy("date", false);
         List<ExerciseRun> runs = queryBuilder.query();
 
         Integer count = 0;
@@ -106,5 +106,11 @@ public class ExerciseDetails extends AppCompatActivity {
         OpenHelperManager.releaseHelper();
 
         return count;
+    }
+
+    public void editExercise(MenuItem item) {
+        Intent intent = new Intent(this, EditExerciseActivity.class);
+        intent.putExtra(EXERCISE_OLD_NAME, MainActivity.EXERCISE_NAME);
+        startActivity(intent);
     }
 }

@@ -33,7 +33,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.exercisediary.EXERCISE_NAME";
+    public static final String EXERCISE_NAME = "com.exercisediary.EXERCISE_NAME";
     private String exerciseName;
 
     public void init() throws SQLException, ParseException {
@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void openExercise(View view) {
         String name = ((TextView) view).getText().toString();
-        Intent intent = new Intent(this, ExerciseDetails.class);
-        intent.putExtra(EXTRA_MESSAGE, name);
+        Intent intent = new Intent(this, ExerciseDetailsActivity.class);
+        intent.putExtra(EXERCISE_NAME, name);
         startActivity(intent);
     }
 
