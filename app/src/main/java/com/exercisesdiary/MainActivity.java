@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.exercisediary.EXERCISE_NAME";
     private String exerciseName;
 
-    public void init() throws SQLException {
+    public void init() throws SQLException, ParseException {
 
         TableLayout stk = findViewById(R.id.exercisesList);
         stk.removeAllViews();
@@ -50,8 +50,7 @@ public class MainActivity extends AppCompatActivity {
         for (Exercise exercise : exercises) {
 
             QueryBuilder<ExerciseRun, Integer> queryBuilder = exerciseRunDao.queryBuilder();
-            queryBuilder.where().eq("exercise_id", exercise.getId());
-            queryBuilder.orderBy("date", false);
+            queryBuilder.where().eq("exercise_id", exercise.getId()).and().eq("date", getCurrentDateWithoutTime());
             ExerciseRun run = queryBuilder.queryForFirst();
 
             Integer count;
@@ -98,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             init();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
     }
