@@ -1,6 +1,5 @@
 package com.exercisesdiary;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -8,6 +7,7 @@ import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,8 +22,12 @@ import com.exercisesdiary.model.ExerciseRun;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.UpdateBuilder;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -47,10 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
             QueryBuilder<ExerciseRun, Integer> queryBuilder = exerciseRunDao.queryBuilder();
             queryBuilder.where().eq("exercise_id", exercise.getId());
-            List<ExerciseRun> runs = queryBuilder.query();
-            Integer count = 0;
+            queryBuilder.orderBy("date", false);
+            ExerciseRun run = queryBuilder.queryForFirst();
 
-            for (ExerciseRun run : runs) count = count + run.getCount();
+            Integer count;
+
+            try {
+                count = run.getCount();
+            }catch (NullPointerException e){
+                count = 0;
+            }
 
             TableRow tbrow = new TableRow(this);
             TextView t1v = new TextView(this);
@@ -129,22 +139,26 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(final View v) {
             final String name = (String) v.getTag();
+            TextView tv = v.findViewWithTag(name);
+            Integer currentCount = Integer.valueOf(tv.getText().toString());
             AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
 
             alert.setTitle(String.format("%s", name));
             final NumberPicker input = new NumberPicker(MainActivity.this);
             input.setMinValue(0);
             input.setMaxValue(9999);
+            input.setValue(currentCount);
             alert.setView(input);
 
             alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int whichButton) {
                     Integer count = input.getValue();
-                    TextView tv = v.findViewWithTag(name);
                     try {
-                        createExerciseRun(name, count, new Date());
+                        changeExerciseRun(name, count, getCurrentDateWithoutTime());
                         init();
                     } catch (SQLException e) {
+                        e.printStackTrace();
+                    } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
@@ -160,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void createExerciseRun(String exerciseName, int count, Date date) throws SQLException {
+    public void changeExerciseRun(String exerciseName, int count, Date date) throws SQLException {
         DBHelper dbHelper = OpenHelperManager.getHelper(this, DBHelper.class);
         RuntimeExceptionDao<Exercise, Integer> exerciseDao = dbHelper.getExerciseRuntimeDao();
         RuntimeExceptionDao<ExerciseRun, Integer> exerciseRunDao = dbHelper.getExerciseRunRuntimeDao();
@@ -169,8 +183,27 @@ public class MainActivity extends AppCompatActivity {
         queryBuilder.where().eq("name", exerciseName);
         Exercise exercise = queryBuilder.queryForFirst();
 
-        exerciseRunDao.create(new ExerciseRun(exercise, count, date));
+        QueryBuilder<ExerciseRun, Integer> qb = exerciseRunDao.queryBuilder();
+        qb.where().eq("exercise_id", exercise.getId()).and().eq("date", date);
+        //qb.where().eq("exercise_id", exercise.getId()).and().eq("date", date);
+
+        try {
+            ExerciseRun run = qb.queryForFirst();
+            Log.d("demo", run.toString());
+            UpdateBuilder<ExerciseRun, Integer> ub = exerciseRunDao.updateBuilder();
+            ub.where().eq("id", run.getId());
+            ub.updateColumnValue("count", count);
+            ub.update();
+        }catch (NullPointerException e){
+            ExerciseRun run = new ExerciseRun(exercise, count, date);
+            exerciseRunDao.create(run);
+        }
 
         OpenHelperManager.releaseHelper();
+    }
+
+    public Date getCurrentDateWithoutTime() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.parse(formatter.format(new Date()));
     }
 }

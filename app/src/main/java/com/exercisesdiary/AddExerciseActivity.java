@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.exercisesdiary.model.Exercise;
+import com.exercisesdiary.model.ExerciseRun;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
+import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class AddExerciseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.add_exercise_menu);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
     @Override

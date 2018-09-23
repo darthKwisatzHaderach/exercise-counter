@@ -29,6 +29,16 @@ public class ExerciseRun {
 
     }
 
+    @Override
+    public String toString() {
+        return "ExerciseRun{" +
+                "id=" + id +
+                ", exercise=" + exercise +
+                ", count=" + count +
+                ", date=" + date +
+                '}';
+    }
+
     public ExerciseRun(Exercise exercise, int count, Date date){
         this.exercise = exercise;
         this.count = count;
@@ -41,5 +51,9 @@ public class ExerciseRun {
 
     public int getCount() {
         return count;
+    }
+
+    public int getId() {
+        return id;
     }
 }

@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,6 +20,7 @@
         </activity>
         <activity
             android:name=".AddExerciseActivity"
+            android:screenOrientation="portrait"
             android:label="@string/add_exercise_menu_title"
             android:parentActivityName=".MainActivity">
 
@@ -29,7 +32,8 @@
         <activity
             android:name=".ExerciseDetails"
             android:label="@string/title_activity_exercise_details"
-            android:theme="@style/AppTheme"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
 
         <!-- The meta-data tag is required if you support API level 15 and lower -->
         <meta-data
