@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 count = run.getCount();
             }catch (NullPointerException e){
-                count = 0;
+                run = changeExerciseRun(exercise.getName(), 0, getCurrentDateWithoutTime());
+                count = run.getCount();
             }
 
             TableRow tbrow = new TableRow(this);
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
             t1v.setText(exercise.getName());
             t1v.setTextSize(20);
             t1v.setTextColor(Color.BLACK);
-            t1v.setPadding(0, 0, 0, 30);
+            t1v.setPadding(0, 0, 0, 40);
             t1v.setWidth(550);
             tbrow.addView(t1v);
 
@@ -175,7 +176,9 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void changeExerciseRun(String exerciseName, int count, Date date) throws SQLException {
+    public ExerciseRun changeExerciseRun(String exerciseName, int count, Date date) throws SQLException {
+        ExerciseRun run;
+
         DBHelper dbHelper = OpenHelperManager.getHelper(this, DBHelper.class);
         RuntimeExceptionDao<Exercise, Integer> exerciseDao = dbHelper.getExerciseRuntimeDao();
         RuntimeExceptionDao<ExerciseRun, Integer> exerciseRunDao = dbHelper.getExerciseRunRuntimeDao();
@@ -189,18 +192,20 @@ public class MainActivity extends AppCompatActivity {
         //qb.where().eq("exercise_id", exercise.getId()).and().eq("date", date);
 
         try {
-            ExerciseRun run = qb.queryForFirst();
+            run = qb.queryForFirst();
             Log.d("demo", run.toString());
             UpdateBuilder<ExerciseRun, Integer> ub = exerciseRunDao.updateBuilder();
             ub.where().eq("id", run.getId());
             ub.updateColumnValue("count", count);
             ub.update();
         }catch (NullPointerException e){
-            ExerciseRun run = new ExerciseRun(exercise, count, date);
+            run = new ExerciseRun(exercise, count, date);
             exerciseRunDao.create(run);
         }
 
         OpenHelperManager.releaseHelper();
+
+        return run;
     }
 
     public Date getCurrentDateWithoutTime() throws ParseException {

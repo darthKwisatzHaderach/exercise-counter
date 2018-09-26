@@ -6,29 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".AddExerciseActivity">
 
-    <android.support.v7.widget.Toolbar android:id="@+id/exercise_details_menu"
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/exercise_details_menu"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" />
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="459dp"
-        android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_exercise_menu">
+        app:layout_constraintTop_toBottomOf="@+id/exercise_details_menu">
 
         <TableRow
             android:layout_width="match_parent"
@@ -36,17 +34,19 @@
 
             <TextView
                 android:id="@+id/textView1"
-                android:layout_width="235dp"
+                android:layout_width="273dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="Сегодня"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/today"
-                android:layout_width="wrap_content"
+                android:layout_width="75dp"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="Неделя"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
@@ -67,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -80,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="Месяц"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
@@ -87,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -100,6 +104,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="Квартал"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
@@ -107,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -120,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="Год"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
@@ -127,6 +134,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
+                android:textColor="#000"
                 android:textSize="20sp" />
         </TableRow>
 
@@ -140,6 +148,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="20dp"
                 android:text="За все время"
+                android:textColor="#000"
                 android:textSize="20sp" />
 
             <TextView
